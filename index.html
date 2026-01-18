@@ -4183,6 +4183,8 @@
                                 if (calendar) {
                                     calendar.style.overflow = 'visible';
                                     calendar.style.boxShadow = 'none';
+                                    calendar.style.border = '1px solid #e5e7eb';
+                                    calendar.style.gap = '0';
                                 }
 
                                 // Compact header for PDF
@@ -4224,11 +4226,13 @@
                                     dh.style.letterSpacing = '1.5px';
                                 });
 
-                                // Make day cells allow content to show
+                                // Make day cells allow content to show and ensure borders are visible
                                 const dayCells = clonedPage.querySelectorAll('.day');
                                 dayCells.forEach(day => {
                                     day.style.padding = '3px 4px';
                                     day.style.overflow = 'visible';
+                                    day.style.border = '1px solid #e5e7eb';
+                                    day.style.margin = '0'; // Ensure no gaps
                                 });
 
                                 // Compact date numbers
