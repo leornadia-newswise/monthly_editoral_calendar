@@ -4166,8 +4166,14 @@
                                 clonedPage.style.overflow = 'visible';
                                 clonedPage.style.margin = '0';
                                 clonedPage.style.padding = '5mm';
+                                clonedPage.style.paddingTop = '8mm';
                                 clonedPage.style.borderRadius = '0';
                                 clonedPage.style.boxShadow = 'none';
+
+                                // Hide the red decorative line at the top
+                                const style = clonedDoc.createElement('style');
+                                style.textContent = '.page::before { display: none !important; }';
+                                clonedDoc.head.appendChild(style);
 
                                 // Make calendar overflow visible
                                 const calendar = clonedPage.querySelector('.calendar');
@@ -4191,19 +4197,20 @@
                                 // Compact observances
                                 const observances = clonedPage.querySelector('.observances');
                                 if (observances) {
-                                    observances.style.padding = '4px 10px';
-                                    observances.style.marginBottom = '3mm';
+                                    observances.style.padding = '6px 12px';
+                                    observances.style.marginBottom = '4mm';
+                                    observances.style.marginTop = '2mm';
                                 }
 
                                 const obsLabel = clonedPage.querySelector('.observances-label');
                                 if (obsLabel) {
-                                    obsLabel.style.fontSize = '7px';
+                                    obsLabel.style.fontSize = '9px';
                                 }
 
                                 const obsSpans = clonedPage.querySelectorAll('.observances-list span');
                                 obsSpans.forEach(span => {
-                                    span.style.fontSize = '7px';
-                                    span.style.padding = '2px 6px';
+                                    span.style.fontSize = '9px';
+                                    span.style.padding = '2px 8px';
                                 });
 
                                 // Compact day headers
@@ -4240,9 +4247,9 @@
                                 // Make events compact and fully visible
                                 const events = clonedPage.querySelectorAll('.event');
                                 events.forEach(evt => {
-                                    evt.style.fontSize = '6px';
-                                    evt.style.padding = '1px 3px';
-                                    evt.style.lineHeight = '1.2';
+                                    evt.style.fontSize = '7px';
+                                    evt.style.padding = '2px 4px';
+                                    evt.style.lineHeight = '1.25';
                                     evt.style.borderRadius = '2px';
                                     evt.style.borderLeftWidth = '2px';
                                     evt.style.whiteSpace = 'normal';
