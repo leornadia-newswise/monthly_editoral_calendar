@@ -4029,11 +4029,13 @@
         // PDF GENERATOR MODULE
         // ============================================
 
-        // PDF Configuration
+        // PDF Configuration - 1920x1080 (16:9 HD format)
         const PDF_CONFIG = {
             scale: 2,                              // 2x resolution for crisp output
-            pageWidth: 297,                        // A4 landscape width (mm)
-            pageHeight: 210,                       // A4 landscape height (mm)
+            pageWidth: 508,                        // 1920px at 96 DPI ≈ 508mm
+            pageHeight: 285.75,                    // 1080px at 96 DPI ≈ 285.75mm
+            canvasWidth: 1920,                     // Target width in pixels
+            canvasHeight: 1080,                    // Target height in pixels
             filename: 'NewsWise_2026_Calendar.pdf',
             quality: 0.95                          // High JPEG quality
         };
@@ -4124,11 +4126,12 @@
                 }
                 await preloadImagesForPDF();
 
-                // Create PDF document in landscape A4
+                // Create PDF document with custom 1920x1080 dimensions
                 const pdf = new jsPDF({
                     orientation: 'landscape',
-                    unit: 'mm',
-                    format: 'a4'
+                    unit: 'px',
+                    format: [PDF_CONFIG.canvasWidth, PDF_CONFIG.canvasHeight],
+                    hotfixes: ['px_scaling']
                 });
 
                 const totalPages = pages.length;
@@ -4141,7 +4144,7 @@
                         onProgress(i + 1, totalPages, `Rendering page ${i + 1} of ${totalPages}...`);
                     }
 
-                    // Render page to canvas with high resolution
+                    // Render page to canvas with 1920x1080 resolution
                     const canvas = await html2canvas(page, {
                         scale: PDF_CONFIG.scale,
                         useCORS: true,
@@ -4149,9 +4152,9 @@
                         backgroundColor: '#ffffff',
                         logging: false,
                         imageTimeout: 15000,
-                        // Set explicit dimensions for A4 landscape (297mm x 210mm at 96 DPI)
-                        width: 1123,  // 297mm at 96 DPI
-                        height: 794,  // 210mm at 96 DPI
+                        // Set explicit dimensions for 1920x1080
+                        width: PDF_CONFIG.canvasWidth,
+                        height: PDF_CONFIG.canvasHeight,
                         onclone: (clonedDoc) => {
                             // Ensure cloned element is visible and properly sized for rendering
                             const clonedPage = clonedDoc.querySelector(`[data-page-index="${i}"]`) ||
@@ -4159,14 +4162,14 @@
                             if (clonedPage) {
                                 clonedPage.style.display = 'flex';
                                 clonedPage.style.visibility = 'visible';
-                                clonedPage.style.width = '297mm';
-                                clonedPage.style.height = '210mm';
-                                clonedPage.style.minHeight = '210mm';
-                                clonedPage.style.maxHeight = '210mm';
+                                clonedPage.style.width = '1920px';
+                                clonedPage.style.height = '1080px';
+                                clonedPage.style.minHeight = '1080px';
+                                clonedPage.style.maxHeight = '1080px';
                                 clonedPage.style.overflow = 'visible';
                                 clonedPage.style.margin = '0';
-                                clonedPage.style.padding = '5mm';
-                                clonedPage.style.paddingTop = '8mm';
+                                clonedPage.style.padding = '20px';
+                                clonedPage.style.paddingTop = '30px';
                                 clonedPage.style.borderRadius = '0';
                                 clonedPage.style.boxShadow = 'none';
 
@@ -4204,21 +4207,21 @@
 
                                 const obsLabel = clonedPage.querySelector('.observances-label');
                                 if (obsLabel) {
-                                    obsLabel.style.fontSize = '9px';
+                                    obsLabel.style.fontSize = '12px';
                                 }
 
                                 const obsSpans = clonedPage.querySelectorAll('.observances-list span');
                                 obsSpans.forEach(span => {
-                                    span.style.fontSize = '9px';
-                                    span.style.padding = '2px 8px';
+                                    span.style.fontSize = '12px';
+                                    span.style.padding = '3px 10px';
                                 });
 
                                 // Compact day headers
                                 const dayHeaders = clonedPage.querySelectorAll('.day-header');
                                 dayHeaders.forEach(dh => {
-                                    dh.style.padding = '4px 2px';
-                                    dh.style.fontSize = '7px';
-                                    dh.style.letterSpacing = '1px';
+                                    dh.style.padding = '8px 4px';
+                                    dh.style.fontSize = '10px';
+                                    dh.style.letterSpacing = '1.5px';
                                 });
 
                                 // Make day cells allow content to show
@@ -4231,10 +4234,10 @@
                                 // Compact date numbers
                                 const dateNumbers = clonedPage.querySelectorAll('.date');
                                 dateNumbers.forEach(d => {
-                                    d.style.fontSize = '9px';
-                                    d.style.width = '14px';
-                                    d.style.height = '14px';
-                                    d.style.marginBottom = '2px';
+                                    d.style.fontSize = '12px';
+                                    d.style.width = '18px';
+                                    d.style.height = '18px';
+                                    d.style.marginBottom = '3px';
                                 });
 
                                 // Make events containers visible
@@ -4247,11 +4250,11 @@
                                 // Make events compact and fully visible
                                 const events = clonedPage.querySelectorAll('.event');
                                 events.forEach(evt => {
-                                    evt.style.fontSize = '7px';
-                                    evt.style.padding = '2px 4px';
-                                    evt.style.lineHeight = '1.25';
-                                    evt.style.borderRadius = '2px';
-                                    evt.style.borderLeftWidth = '2px';
+                                    evt.style.fontSize = '9px';
+                                    evt.style.padding = '3px 6px';
+                                    evt.style.lineHeight = '1.3';
+                                    evt.style.borderRadius = '3px';
+                                    evt.style.borderLeftWidth = '3px';
                                     evt.style.whiteSpace = 'normal';
                                     evt.style.overflow = 'visible';
                                     evt.style.textOverflow = 'clip';
@@ -4280,15 +4283,14 @@
                         pdf.addPage();
                     }
 
-                    // Add image to PDF at full page dimensions
-                    // Canvas is rendered at exact A4 proportions, so no aspect ratio adjustment needed
+                    // Add image to PDF at full page dimensions (1920x1080)
                     pdf.addImage(
                         imgData,
                         'JPEG',
                         0,
                         0,
-                        PDF_CONFIG.pageWidth,
-                        PDF_CONFIG.pageHeight
+                        PDF_CONFIG.canvasWidth,
+                        PDF_CONFIG.canvasHeight
                     );
                 }
 
