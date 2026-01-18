@@ -4168,8 +4168,8 @@
                                 clonedPage.style.maxHeight = '1080px';
                                 clonedPage.style.overflow = 'visible';
                                 clonedPage.style.margin = '0';
-                                clonedPage.style.padding = '20px';
-                                clonedPage.style.paddingTop = '30px';
+                                clonedPage.style.padding = '15px';
+                                clonedPage.style.paddingTop = '20px';
                                 clonedPage.style.borderRadius = '0';
                                 clonedPage.style.boxShadow = 'none';
 
@@ -4188,8 +4188,8 @@
                                 // Compact header for PDF
                                 const header = clonedPage.querySelector('.header');
                                 if (header) {
-                                    header.style.marginBottom = '3mm';
-                                    header.style.paddingBottom = '2mm';
+                                    header.style.marginBottom = '2mm';
+                                    header.style.paddingBottom = '1mm';
                                 }
 
                                 const monthTitle = clonedPage.querySelector('.month-title');
@@ -4200,9 +4200,9 @@
                                 // Compact observances
                                 const observances = clonedPage.querySelector('.observances');
                                 if (observances) {
-                                    observances.style.padding = '6px 12px';
-                                    observances.style.marginBottom = '4mm';
-                                    observances.style.marginTop = '2mm';
+                                    observances.style.padding = '4px 10px';
+                                    observances.style.marginBottom = '2mm';
+                                    observances.style.marginTop = '1mm';
                                 }
 
                                 const obsLabel = clonedPage.querySelector('.observances-label');
@@ -4219,40 +4219,40 @@
                                 // Compact day headers
                                 const dayHeaders = clonedPage.querySelectorAll('.day-header');
                                 dayHeaders.forEach(dh => {
-                                    dh.style.padding = '10px 6px';
-                                    dh.style.fontSize = '14px';
-                                    dh.style.letterSpacing = '2px';
+                                    dh.style.padding = '6px 4px';
+                                    dh.style.fontSize = '12px';
+                                    dh.style.letterSpacing = '1.5px';
                                 });
 
                                 // Make day cells allow content to show
                                 const dayCells = clonedPage.querySelectorAll('.day');
                                 dayCells.forEach(day => {
-                                    day.style.padding = '4px 5px';
+                                    day.style.padding = '3px 4px';
                                     day.style.overflow = 'visible';
                                 });
 
                                 // Compact date numbers
                                 const dateNumbers = clonedPage.querySelectorAll('.date');
                                 dateNumbers.forEach(d => {
-                                    d.style.fontSize = '16px';
-                                    d.style.width = '22px';
-                                    d.style.height = '22px';
-                                    d.style.marginBottom = '4px';
+                                    d.style.fontSize = '14px';
+                                    d.style.width = '18px';
+                                    d.style.height = '18px';
+                                    d.style.marginBottom = '2px';
                                 });
 
                                 // Make events containers visible
                                 const eventsContainers = clonedPage.querySelectorAll('.events');
                                 eventsContainers.forEach(ec => {
                                     ec.style.overflow = 'visible';
-                                    ec.style.gap = '2px';
+                                    ec.style.gap = '1px';
                                 });
 
                                 // Make events compact and fully visible
                                 const events = clonedPage.querySelectorAll('.event');
                                 events.forEach(evt => {
                                     evt.style.fontSize = '15px';
-                                    evt.style.padding = '5px 10px';
-                                    evt.style.lineHeight = '1.4';
+                                    evt.style.padding = '2px 6px';
+                                    evt.style.lineHeight = '1.2';
                                     evt.style.borderRadius = '4px';
                                     evt.style.borderLeftWidth = '4px';
                                     evt.style.whiteSpace = 'normal';
