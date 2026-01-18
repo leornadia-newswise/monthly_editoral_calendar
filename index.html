@@ -4163,10 +4163,96 @@
                                 clonedPage.style.height = '210mm';
                                 clonedPage.style.minHeight = '210mm';
                                 clonedPage.style.maxHeight = '210mm';
-                                clonedPage.style.overflow = 'hidden';
+                                clonedPage.style.overflow = 'visible';
                                 clonedPage.style.margin = '0';
+                                clonedPage.style.padding = '5mm';
                                 clonedPage.style.borderRadius = '0';
                                 clonedPage.style.boxShadow = 'none';
+
+                                // Make calendar overflow visible
+                                const calendar = clonedPage.querySelector('.calendar');
+                                if (calendar) {
+                                    calendar.style.overflow = 'visible';
+                                    calendar.style.boxShadow = 'none';
+                                }
+
+                                // Compact header for PDF
+                                const header = clonedPage.querySelector('.header');
+                                if (header) {
+                                    header.style.marginBottom = '3mm';
+                                    header.style.paddingBottom = '2mm';
+                                }
+
+                                const monthTitle = clonedPage.querySelector('.month-title');
+                                if (monthTitle) {
+                                    monthTitle.style.fontSize = '28pt';
+                                }
+
+                                // Compact observances
+                                const observances = clonedPage.querySelector('.observances');
+                                if (observances) {
+                                    observances.style.padding = '4px 10px';
+                                    observances.style.marginBottom = '3mm';
+                                }
+
+                                const obsLabel = clonedPage.querySelector('.observances-label');
+                                if (obsLabel) {
+                                    obsLabel.style.fontSize = '7px';
+                                }
+
+                                const obsSpans = clonedPage.querySelectorAll('.observances-list span');
+                                obsSpans.forEach(span => {
+                                    span.style.fontSize = '7px';
+                                    span.style.padding = '2px 6px';
+                                });
+
+                                // Compact day headers
+                                const dayHeaders = clonedPage.querySelectorAll('.day-header');
+                                dayHeaders.forEach(dh => {
+                                    dh.style.padding = '4px 2px';
+                                    dh.style.fontSize = '7px';
+                                    dh.style.letterSpacing = '1px';
+                                });
+
+                                // Make day cells allow content to show
+                                const dayCells = clonedPage.querySelectorAll('.day');
+                                dayCells.forEach(day => {
+                                    day.style.padding = '2px 3px';
+                                    day.style.overflow = 'visible';
+                                });
+
+                                // Compact date numbers
+                                const dateNumbers = clonedPage.querySelectorAll('.date');
+                                dateNumbers.forEach(d => {
+                                    d.style.fontSize = '9px';
+                                    d.style.width = '14px';
+                                    d.style.height = '14px';
+                                    d.style.marginBottom = '2px';
+                                });
+
+                                // Make events containers visible
+                                const eventsContainers = clonedPage.querySelectorAll('.events');
+                                eventsContainers.forEach(ec => {
+                                    ec.style.overflow = 'visible';
+                                    ec.style.gap = '1px';
+                                });
+
+                                // Make events compact and fully visible
+                                const events = clonedPage.querySelectorAll('.event');
+                                events.forEach(evt => {
+                                    evt.style.fontSize = '6px';
+                                    evt.style.padding = '1px 3px';
+                                    evt.style.lineHeight = '1.2';
+                                    evt.style.borderRadius = '2px';
+                                    evt.style.borderLeftWidth = '2px';
+                                    evt.style.whiteSpace = 'normal';
+                                    evt.style.overflow = 'visible';
+                                    evt.style.textOverflow = 'clip';
+                                    evt.style.height = 'auto';
+                                    evt.style.minHeight = 'auto';
+                                    evt.style.wordBreak = 'break-word';
+                                    evt.style.boxShadow = 'none';
+                                });
 
                                 // Replace external images with cached base64 versions
                                 const images = clonedPage.querySelectorAll('img');
